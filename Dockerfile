@@ -1,6 +1,6 @@
 ARG ARCH=amd64
 ARG PLATFORM=linux
-FROM --platform=${PLATFORM}/${ARCH} alpine as fetcher
+FROM alpine as fetcher
 
 ARG VERSION
 ARG ARCH
@@ -13,7 +13,7 @@ RUN wget https://github.com/pocketbase/pocketbase/releases/download/v${VERSION}/
 
 ######
 
-FROM gcr.io/distroless/static:debug
+FROM gcr.io/distroless/static
 
 COPY --from=fetcher /tmp/pocketbase /pocketbase/pocketbase
 ENTRYPOINT [ "/pocketbase/pocketbase" ]
