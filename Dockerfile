@@ -17,4 +17,4 @@ FROM gcr.io/distroless/static
 
 COPY --from=fetcher /tmp/pocketbase /pocketbase/pocketbase
 ENTRYPOINT [ "/pocketbase/pocketbase" ]
-CMD [ "serve" ]
+CMD [ "serve", "--http", "0.0.0.0:8090" ]

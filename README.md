@@ -31,7 +31,6 @@ version: '3.9'
 services:
   pocketbase:
     image: 'ghcr.io/acifani/pocketbase:0.2-arm64'
-    command: 'serve --http 0.0.0.0:8090'
     ports:
       - '8090:8090'
     volumes:
