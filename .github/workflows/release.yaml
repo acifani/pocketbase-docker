@@ -34,7 +34,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/acifani/pocketbase:$PB_VERSION-${{ matrix.arch }}
+          tags: ghcr.io/acifani/pocketbase:${{ env.PB_VERSION }}-${{ matrix.arch }}
           build-args: |
             ARCH=${{ matrix.arch }}
             VERSION=${{ env.PB_VERSION }}
