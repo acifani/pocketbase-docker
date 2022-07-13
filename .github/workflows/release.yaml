@@ -1,0 +1,40 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  packages: write
+
+env:
+  PB_VERSION: 0.2.4
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ['amd64', 'arm64']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push AMD64
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/acifani/pocketbase:$PB_VERSION-${{ matrix.arch }}
+          build-args: |
+            ARCH=${{ matrix.arch }}
+            VERSION=${{ env.PB_VERSION }}
